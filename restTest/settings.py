@@ -24,6 +24,8 @@ SECRET_KEY = 'rq95($0$hj()s_@9@52le5r@22p_b!4oeq6*2#534+)2&)xr0k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+HOST = False
+
 ALLOWED_HOSTS = ["192.168.1.169", "127.0.0.1", 'vlad12.pythonanywhere.com']
 
 # Application definition
@@ -130,3 +132,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+if HOST:
+    STATIC_ROOT = '/home/vlad12/langamyRestApi/static'
