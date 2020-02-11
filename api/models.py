@@ -1,3 +1,5 @@
+import uuid
+
 from django.conf import settings
 from django.db import models
 
@@ -14,4 +16,16 @@ class StudySets(models.Model):
         return '%s %s' % (self.name, self.creator)
 
 
-# Create your models here.
+class Dictation(models.Model):
+    code = models.IntegerField(null=True)
+    name = models.CharField(max_length=256, default="Dictation")
+    creator = models.EmailField()
+    words = models.TextField()
+    marked_words = models.TextField(blank=True, null=True)
+    members = models.TextField(null=True, blank=True, default=None)
+    type_of_questions = models.CharField(max_length=256, default="quiz")
+    amount_of_words = models.IntegerField(default=2)
+    amount_of_words_for_dictation = models.IntegerField(default=2)
+
+    def __str__(self):
+        return '%s %s' %(self.code, self.creator)

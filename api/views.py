@@ -1,3 +1,6 @@
+import os
+import uuid
+
 from django.contrib.sites import requests
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
@@ -11,14 +14,11 @@ from api.models import *
 from api.serializers import *
 
 
-@api_view(['GET', 'POST'])
-def create_study_set(request):
-    if request.method == 'POST':
-        serializer = StudySetsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+def createUniquId():
+    # 8-numeric
+    return hash(str(uuid.uuid1())) % 100000000
+
+
 
 
 @api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
@@ -36,6 +36,36 @@ def api_study_set_detail(request, pk):
     # elif request.method == 'DELETE':
     #     study_set.delete()
     #     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+def get_dictation(request, creator, code):
+    dictation = Dictation.objects.get(code=code, creator=creator)
+    if request.method == 'GET':
+        serializer = SpecificDictationSerializer(dictation)
+        return Response(serializer.data)
+
+
+@api_view(['POST'])
+def create_study_set(request):
+    global serializer
+    if request.method == 'POST':
+        serializer = StudySetsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def create_dictation(request):
+    global serializer
+    if request.method == 'POST':
+        serializer = SpecificDictationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(code=hash(str(uuid.uuid1())) % 100000000)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GetStudySetsOfCurrentUser(generics.ListAPIView):
