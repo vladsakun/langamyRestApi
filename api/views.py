@@ -19,8 +19,6 @@ def createUniquId():
     return hash(str(uuid.uuid1())) % 100000000
 
 
-
-
 @api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 def api_study_set_detail(request, pk):
     study_set = StudySets.objects.get(pk=pk)
@@ -39,8 +37,8 @@ def api_study_set_detail(request, pk):
 
 
 @api_view(['GET'])
-def get_dictation(request, creator, code):
-    dictation = Dictation.objects.get(code=code, creator=creator)
+def get_dictation(request, code):
+    dictation = Dictation.objects.get(code=code)
     if request.method == 'GET':
         serializer = SpecificDictationSerializer(dictation)
         return Response(serializer.data)

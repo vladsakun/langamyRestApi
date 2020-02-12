@@ -17,7 +17,7 @@ class StudySets(models.Model):
 
 
 class Dictation(models.Model):
-    code = models.IntegerField(null=True)
+    code = models.IntegerField(null=True, unique=True)
     name = models.CharField(max_length=256, default="Dictation")
     creator = models.EmailField()
     words = models.TextField()
@@ -28,4 +28,4 @@ class Dictation(models.Model):
     amount_of_words_for_dictation = models.IntegerField(default=2)
 
     def __str__(self):
-        return '%s %s' %(self.code, self.creator)
+        return '%s %s' % (self.code, self.creator)
