@@ -48,6 +48,13 @@ def get_dictation(request, code, mode):
         return Response(serializer.data)
 
 
+class GetDictationsOfCurrentUser(generics.ListAPIView):
+    serializer_class = DictationNamesSerializer
+
+    def get_queryset(self, user_email=None):
+        user_email = self.kwargs['user_email']
+        return Dictation.objects.filter(creator=user_email)
+
 
 @api_view(['POST'])
 def create_study_set(request):

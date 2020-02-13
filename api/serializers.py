@@ -14,8 +14,13 @@ class StudySetsNamesSerializer(serializers.ModelSerializer):
         fields = ('name', 'amount_of_words', 'id')
 
 
-class SpecificDictationSerializer(serializers.ModelSerializer):
+class DictationNamesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Dictation
+        fields = ('code', 'name', 'amount_of_words', 'id')
 
+
+class SpecificDictationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dictation
         fields = ('creator', 'name', 'words', 'marked_words',
