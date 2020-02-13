@@ -26,7 +26,7 @@ DEBUG = True
 
 HOST = False
 
-ALLOWED_HOSTS = ["192.168.1.169","192.168.1.249", "127.0.0.1", 'vlad12.pythonanywhere.com']
+ALLOWED_HOSTS = ["192.168.1.249", "127.0.0.1", 'vlad12.pythonanywhere.com']
 
 # Application definition
 

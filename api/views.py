@@ -61,7 +61,7 @@ def create_dictation(request):
     if request.method == 'POST':
         serializer = SpecificDictationSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(code=hash(str(uuid.uuid1())) % 100000000)
+            serializer.save(code=createUniquId())
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
