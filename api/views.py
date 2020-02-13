@@ -37,11 +37,16 @@ def api_study_set_detail(request, pk):
 
 
 @api_view(['GET'])
-def get_dictation(request, code):
-    dictation = Dictation.objects.get(code=code)
+def get_dictation(request, code, mode):
+    global dictation
+    if mode == "id":
+        dictation = Dictation.objects.get(id=code)
+    elif mode == "code":
+        dictation = Dictation.objects.get(code=code)
     if request.method == 'GET':
         serializer = SpecificDictationSerializer(dictation)
         return Response(serializer.data)
+
 
 
 @api_view(['POST'])
