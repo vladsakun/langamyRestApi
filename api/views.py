@@ -57,6 +57,72 @@ def dictation(request, code, mode):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(['GET', 'PUT', 'PATCH', 'DELETE', 'POST'])
+def user(request, email="default"):
+    if request.method == 'GET':
+        user = User.objects.get(email=email)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'PUT' or request.method == 'PATCH':
+        user = User.objects.get(email=email)
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        user = User.objects.get(email=email)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['PATCH'])
+def update_members(request, id, email):
+    dictation = Dictation.objects.get(id=id)
+    user = User.objects.get(email=email)
+    dictationMembers = dictation.members.all()
+    if not user in dictationMembers:
+        dictation.members.add(user)
+        dictation.save()
+    return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['PATCH'])
+def update_user_mark(request, email):
+    import json
+
+    user = User.objects.get(email=email)
+    data = json.loads(request.data)
+    dictationId = data["dictation_id"]
+    mark = data["mark"]
+    currentMarks = user.marks
+
+    if currentMarks == "":
+        marks = [{"dictation_id": dictationId, "mark": mark}]
+        user.marks = marks
+    else:
+        marks = json.loads(currentMarks)
+        jsonObject = {"dictation_id": dictationId, "mark": mark}
+        if jsonObject in marks:
+            for mark in marks:
+                if mark["dictation_id"] == dictationId:
+                    mark["mark"] = mark
+                    break
+        else:
+            marks.append({"dictation_id": dictationId, "mark": mark})
+        user.marks = marks
+
+    user.save()
+
+    return Response(status=status.HTTP_200_OK)
+
+
 @api_view(['GET'])
 def get_shared_studyset(request, creator, pk):
     study_set = StudySets.objects.get(creator=creator, pk=pk)
