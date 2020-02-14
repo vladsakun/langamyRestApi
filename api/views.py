@@ -20,7 +20,7 @@ def createUniquId():
 
 
 @api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
-def api_study_set_detail(request, pk):
+def study_set_detail(request, pk):
     study_set = StudySets.objects.get(pk=pk)
     if request.method == 'GET':
         serializer = StudySetsSerializer(study_set)
@@ -36,8 +36,8 @@ def api_study_set_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['GET'])
-def get_dictation(request, code, mode):
+@api_view(['GET', 'PATCH', 'DELETE', 'POST'])
+def dictation(request, code, mode):
     global dictation
     if mode == "id":
         dictation = Dictation.objects.get(id=code)
@@ -45,6 +45,23 @@ def get_dictation(request, code, mode):
         dictation = Dictation.objects.get(code=code)
     if request.method == 'GET':
         serializer = SpecificDictationSerializer(dictation)
+        return Response(serializer.data)
+    elif request.method == 'PATCH':
+        serializer = SpecificDictationSerializer(dictation, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        dictation.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+def get_shared_studyset(request, creator, pk):
+    study_set = StudySets.objects.get(creator=creator, pk=pk)
+    if request.method == 'GET':
+        serializer = StudySetsSerializer(study_set)
         return Response(serializer.data)
 
 
