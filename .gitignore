@@ -1,2 +1,2 @@
-#/api/migrations/**
+/api/migrations/**
 /restTest/settings.py

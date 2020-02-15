@@ -2,6 +2,7 @@ import os
 import uuid
 
 from django.contrib.sites import requests
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from rest_framework import status, mixins, generics
@@ -82,43 +83,39 @@ def user(request, email="default"):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['PATCH'])
-def update_members(request, id, email):
-    dictation = Dictation.objects.get(id=id)
-    user = User.objects.get(email=email)
-    dictationMembers = dictation.members.all()
-    if not user in dictationMembers:
-        dictation.members.add(user)
-        dictation.save()
-    return Response(status=status.HTTP_200_OK)
+@api_view(['GET'])
+def get_members_marks(request, dictation_id, mode):
+    global dictation
+    if mode == "id":
+        dictation = Dictation.objects.get(id=dictation_id)
+    elif mode == "code":
+        dictation = Dictation.objects.get(code=dictation_id)
+    if request.method == 'GET':
+        members_marks = []
+        dictation_marks = DictationMark.objects.filter(dictation=dictation)
+        for dictation_mark in dictation_marks:
+            members_marks.append({"email": dictation_mark.user.email, "mark": dictation_mark.mark})
+
+        return JsonResponse(members_marks, safe=False)
 
 
 @api_view(['PATCH'])
 def update_user_mark(request, email):
     import json
 
-    user = User.objects.get(email=email)
     data = json.loads(request.data)
     dictationId = data["dictation_id"]
     mark = data["mark"]
-    currentMarks = user.marks
+    user = User.objects.get(email=email)
+    dictation = Dictation.objects.get(id=dictationId)
 
-    if currentMarks == "":
-        marks = [{"dictation_id": dictationId, "mark": mark}]
-        user.marks = marks
-    else:
-        marks = json.loads(currentMarks)
-        jsonObject = {"dictation_id": dictationId, "mark": mark}
-        if jsonObject in marks:
-            for mark in marks:
-                if mark["dictation_id"] == dictationId:
-                    mark["mark"] = mark
-                    break
-        else:
-            marks.append({"dictation_id": dictationId, "mark": mark})
-        user.marks = marks
+    try:
+        currentMark = DictationMark.objects.get(user=user, dictation=dictation)
+        currentMark.mark = mark
+    except DictationMark.DoesNotExist:
+        currentMark = DictationMark(user=user, dictation=dictation, mark=mark)
 
-    user.save()
+    currentMark.save()
 
     return Response(status=status.HTTP_200_OK)
 

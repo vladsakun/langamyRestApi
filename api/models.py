@@ -46,3 +46,5 @@ class DictationMark(models.Model):
     dictation = models.ForeignKey(Dictation, on_delete=models.CASCADE)
     mark = models.IntegerField()
 
+    def __str__(self):
+        return '%s %s' % (self.user.email, self.dictation.code)
