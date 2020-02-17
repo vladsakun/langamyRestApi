@@ -1,0 +1,100 @@
+html, body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #1976D2;
+
+}
+
+header {
+    margin-top: 2em;
+}
+
+.fabutton {
+    background: none;
+    padding: 0px;
+    border: none;
+}
+
+#logo-img {
+    width: 60px;
+    height: 60px;
+    border: solid #ffffff;
+}
+
+#logo {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: Roboto;
+    margin: auto;
+}
+
+#logout-div, #search-div {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#search-div input {
+    color: #ffffff;
+    min-width: 20em;
+    font-size: 1.5rem;
+}
+
+#search-div input::placeholder {
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+#search-div i {
+    color: #ffffff;
+}
+
+@media (max-width: 968px) {
+
+    #logout-div a {
+        padding: .5rem 1rem;
+    }
+
+    header {
+        margin-top: 0;
+    }
+
+    header .row {
+        padding: 1em;
+    }
+
+    #logo-img, #logo {
+        width: 40px;
+        height: 40px;
+        margin: 0;
+        padding: 0;
+    }
+
+    #search-div input {
+        min-width: 0;
+    }
+
+    #logout-div, #search-div {
+        padding: 0;
+    }
+
+    #search-div form {
+        margin: 0;
+    }
+
+    #search-div input {
+        padding: 0;
+        margin-top: 0;
+    }
+}

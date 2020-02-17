@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/wrapper.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a7b1314dc0.js"
+            crossorigin="anonymous"></script>
+    <title>Langamy</title>
+</head>
+<header>
+    <div class="row">
+        <div class="col-lg-3 col-2 col-md-2 col-sm-2" id="logo">
+            <a href="/">
+                <img src="{% static '/images/logo2.jpg' %}"
+                     id="logo-img" alt="logo">
+            </a>
+        </div>
+        <div class="col-6 col-lg-6 col-md-6 col-sm-6" id="search-div">
+            <!-- Search form -->
+            <form class="form-inline md-form form-sm active-cyan-2"
+                  action="/" method="POST">
+                {% csrf_token %}
+                <input name="dictation_code" class="form-control
+                        form-control-sm mr-3 w-75"
+                       type="text" placeholder="Dictation code"
+                       aria-label="Search">
+                <button type="submit" id="completed-task"
+                        class="fabutton">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
+        <div class="col-4 col-lg-3 col-md-4 col-sm-4" id="logout-div">
+            <a class="btn btn-sm blue-gradient" href="/accounts/logout/">
+                Logout
+            </a>
+        </div>
+    </div>
+</header>
+<body>
+{% block content %}
+<p>{{user_email}}</p>
+{% endblock %}
+</body>
+</html>

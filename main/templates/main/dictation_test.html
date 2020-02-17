@@ -1,0 +1,58 @@
+{% extends "main/wrapper.html" %}
+{% load static %}
+{% block content %}
+<script src="{% static 'js/tabs_switcher.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/dictation_test.css' %}">
+<div class="container">
+    <div id="quiz-questions--div" class="row">
+        <div id="question-nums--div" class="col-lg-12 col-12 col-md-12 col-sm-12">
+            <ul class="nav nav-tabs" id="question-tabs--ul" role="tablist">
+                {% for word in dictation_words %}
+                {% if forloop.counter == 1 %}
+                <li role="presentation" class="active">
+                    <a class="btn btn-sm" href="#step{{ forloop.counter }}" aria-controls="step{{ forloop.counter }}"
+                       role="tab"
+                       data-toggle="tab">{{ forloop.counter }}</a>
+                </li>
+                {% else %}
+                <li role="presentation">
+                    <a class="btn btn-sm" href="#step{{ forloop.counter }}" aria-controls="step{{ forloop.counter }}"
+                       role="tab" data-toggle="tab">{{ forloop.counter }}</a>
+                </li>
+                {%endif%}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="tab-content">
+            {% for word in dictation_words %}
+            {% if forloop.counter == 1 %}
+            <div role="tabpanel" class="tab-pane active" id="step{{ forloop.counter }}">
+                {{word.term}}
+                <p>{{word.translation}}</p>
+                <button class="btn btn-dark previous-tab">previous</button>
+                <button class="btn btn-dark next-tab">next</button>
+            </div>
+            {% else %}
+            <div role="tabpanel" class="tab-pane" id="step{{ forloop.counter }}">
+                {{word.term}}
+                <p>{{word.translation}}</p>
+                <button class="btn btn-dark previous-tab">previous</button>
+                <button class="btn btn-dark next-tab">next</button>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <!--            <div role="tabpanel" class="tab-pane active" id="step1">-->
+
+            <!--                <button class="btn btn-dark previous-tab">previous</button>-->
+            <!--                <button class="btn btn-dark next-tab">next</button>-->
+            <!--            </div>-->
+            <!--            <div role="tabpanel" class="tab-pane" id="step2">-->
+            <!--                <p>tab2 content</p>-->
+            <!--                <span class="btn btn-dark previous-tab">previous</span>-->
+            <!--                <span class="btn btn-dark next-tab">next</span>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</div>
+
+{% endblock %}

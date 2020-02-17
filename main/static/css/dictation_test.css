@@ -1,0 +1,21 @@
+#quiz-questions--div{
+    background-color: #ffffff;
+    color: #000000;
+}
+.previous-tab:hover, .next-tab:hover{
+    cursor: pointer;
+}
+#question-tabs--ul li{
+    margin-right: .2em;
+}
+
+.tab-content{
+    width: 100%;
+    padding: 1em;
+}
+.previous-tab{
+    float: left;
+}
+.next-tab{
+    float: right;
+}

@@ -1,0 +1,46 @@
+{% extends 'main/wrapper.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/dictation.css' %}">
+<p class="error">{{error}}</p>
+
+    <div id="start-dictation--div" class="">
+        <a class="btn purple-gradient" href="/dictation/{{dictation.code}}">Start dictation</a>
+    </div>
+<div class="row" style="padding: 1.5em;">
+    <div class="col-12 col-lg-12 col-md-12 col-sm-12 table-responsive text-nowrap" style="padding: 0">
+        <table class="table table-sms" id="dictation-info--table">
+            <tbody>
+            <tr>
+                <td>Question amount</td>
+                <th>{{dictation.amount_of_words_for_dictation}}</th>
+            </tr>
+            <tr>
+                <td>Type of questions</td>
+                <th>{{dictation.type_of_questions}}</th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <th>{{dictation.name}}</th>
+            </tr>
+            <tr>
+                <td>Creator</td>
+                <th>{{dictation.creator}}</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row" id="words" style="">
+    {% for word in dictation_words %}
+
+    <div class="card col-12 col-lg-3 col-sm-12 col-md-12">
+        <div class="term">{{word.term}}</div>
+        <div class="translation">{{word.translation}}</div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

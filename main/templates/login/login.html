@@ -1,0 +1,17 @@
+{% extends 'main/wrapper.html' %}
+
+{% load socialaccount %}
+{% providers_media_js %}
+
+{% block content %}
+<div class="row">
+    <div class="google-sign-in--div" style="margin: auto">
+    <a href="{% provider_login_url 'google' %}">
+        <button class="btn btn-lg btn-google text-uppercase" type="submit">
+            <i class="fab fa-google mr-2"></i>
+            Sign in with Google
+        </button>
+    </a>
+    </div>
+</div>
+{% endblock %}

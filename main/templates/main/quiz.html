@@ -1,0 +1,25 @@
+{% extends "main/wrapper.html" %}
+{% load static %}
+{% block content %}
+
+<ul class="nav nav-tabs" id="myTabs" role="tablist">
+    <li role="presentation" class="active"><a href="#step1" aria-controls="step1" role="tab" data-toggle="tab">Step1</a>
+    </li>
+    <li role="presentation"><a href="#step2" aria-controls="step2" role="tab" data-toggle="tab">Step2</a></li>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="step1">
+        <p>tab1 content</p>
+        <p>//Include next prev buttons in the tab-content</p>
+        <span class="previous-tab">previous</span>
+        <span class="next-tab">next</span>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="step2">
+        <p>tab2 content</p>
+        <p>//Include next prev buttons in the tab-content</p>
+        <span class="previous-tab">previous</span>
+        <span class="next-tab">next</span>
+    </div>
+</div>
+
+{% endblock %}

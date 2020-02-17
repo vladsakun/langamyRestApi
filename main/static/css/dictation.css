@@ -1,0 +1,50 @@
+.error{
+    font-size: 2rem;
+    color: brown;
+}
+
+#dictation-info--table{
+    color: #ffffff;
+    font-size: 1rem;
+    margin: auto;
+    width: auto;
+}
+
+#dictation-info--table th{
+    font-size: 1.2rem;
+}
+
+#dictation-info--div{
+    padding: 1.5em;
+}
+
+#words, #start-dictation--div{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.card{
+    text-align: center;
+    margin-right: .5em;
+    margin-bottom: .5em;
+    border-radius: 0.5em;
+    padding: .5em;
+}
+.card .translation{
+    font-size: 1.5rem;
+    color: #000000;
+}
+.card .term{
+    font-size: 1.2rem;
+    color: #4D5656;
+}
+
+@media (max-width: 968px) {
+    #words {
+        padding: 1.5em;
+    }
+    .card{
+        margin-right: 0;
+    }
+}
