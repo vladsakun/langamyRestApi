@@ -1,50 +1,102 @@
-.error{
+.error {
     font-size: 2rem;
     color: brown;
 }
 
-#dictation-info--table{
+#dictation-info--table {
     color: #ffffff;
     font-size: 1rem;
-    margin: auto;
     width: auto;
 }
 
-#dictation-info--table th{
+#dictation-info--table th {
     font-size: 1.2rem;
 }
 
 #dictation-info--div{
-    padding: 1.5em;
+    padding:1em;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
-#words, #start-dictation--div{
-    display: flex;
+#start-dictation--div a {
+    margin: 0;
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+#words, #start-dictation--div {
     align-content: center;
     justify-content: center;
 }
 
-.card{
-    text-align: center;
-    margin-right: .5em;
-    margin-bottom: .5em;
+.scene {
+    min-height: 10em;
+    perspective: 600px;
+}
+
+.dictation-card {
+    border: solid slategrey 1px;
     border-radius: 0.5em;
-    padding: .5em;
-}
-.card .translation{
-    font-size: 1.5rem;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 3px 6px #283747, 0 3px 6px #283747;
+    min-height: 10em;
     color: #000000;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
 }
-.card .term{
-    font-size: 1.2rem;
-    color: #4D5656;
+
+.dictation-card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card__face {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #000000;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.card__face--back {
+    color: #000000;
+    transform: rotateY(180deg);
+}
+
+.swiper-wrapper{
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+.swiper-button-next, .swiper-button-prev{
+    color: #ffffff;
+}
+
+.swiper-pagination{
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 400;
 }
 
 @media (max-width: 968px) {
-    #words {
-        padding: 1.5em;
+    .swiper-container {
+        padding-left: 15px;
+        padding-right: 15px;
     }
-    .card{
+
+
+    .dictation-card {
         margin-right: 0;
     }
 }

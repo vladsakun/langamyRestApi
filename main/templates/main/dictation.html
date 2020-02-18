@@ -1,46 +1,119 @@
 {% extends 'main/wrapper.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/dictation.css' %}">
-<p class="error">{{error}}</p>
 
-    <div id="start-dictation--div" class="">
-        <a class="btn purple-gradient" href="/dictation/{{dictation.code}}">Start dictation</a>
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+
+    <script src="https://unpkg.com/swiper/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+
+    <!-- Demo styles -->
+    <style>
+        .swiper-container {
+            width: 100%;
+        }
+
+        .swiper-slide {
+            min-height: 15em;
+            text-align: center;
+            font-size: 18px;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/dictation.css' %}">
+    <p class="error">{{ error }}</p>
+    <div class="container">
+        <div class="row">
+            <div id="dictation-info--div" class="col-lg-4 col-md-12 col-sm-12 col-12">
+                <div id="start-dictation--div">
+                    <a class="btn purple-gradient" href="/dictation/{{ dictation.code }}">Start dictation</a>
+                </div>
+                <div class="col-12 col-lg-12 col-md-12 col-sm-12 table-responsive text-nowrap" style="padding: 0">
+                    <table class="table table-sms" id="dictation-info--table">
+                        <tbody>
+                        <tr>
+                            <td>Question amount</td>
+                            <th>{{ dictation.amount_of_words_for_dictation }}</th>
+                        </tr>
+                        <tr>
+                            <td>Type of questions</td>
+                            <th>{{ dictation.type_of_questions }}</th>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <th>{{ dictation.name }}</th>
+                        </tr>
+                        <tr>
+                            <td>Creator</td>
+                            <th>{{ dictation.creator }}</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="swiper-container col-lg-8 col-12 col-md-12 col-sm-12 row" id="words" style="">
+                <div class="swiper-wrapper">
+                    {% for word in dictation_words %}
+                        <div class="swiper-slide">
+                            <div class="scene scene--card col-lg-6 col-sm-6 col-10 col-md-6">
+                                <div class="dictation-card">
+                                    <div class="card__face card__face--front">{{ word.term }}</div>
+                                    <div class="card__face card__face--back">{{ word.translation }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Add Pagination -->
+                <div id="swiper-pagination--div">
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <!-- Add Arrows -->
+                </div>
+            </div>
+        </div>
     </div>
-<div class="row" style="padding: 1.5em;">
-    <div class="col-12 col-lg-12 col-md-12 col-sm-12 table-responsive text-nowrap" style="padding: 0">
-        <table class="table table-sms" id="dictation-info--table">
-            <tbody>
-            <tr>
-                <td>Question amount</td>
-                <th>{{dictation.amount_of_words_for_dictation}}</th>
-            </tr>
-            <tr>
-                <td>Type of questions</td>
-                <th>{{dictation.type_of_questions}}</th>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <th>{{dictation.name}}</th>
-            </tr>
-            <tr>
-                <td>Creator</td>
-                <th>{{dictation.creator}}</th>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+    <div>
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper('.swiper-container', {
+                pagination: {
+                    el: '.swiper-pagination',
+                    type: 'fraction',
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        </script>
 
-<div class="row" id="words" style="">
-    {% for word in dictation_words %}
+        <script>
 
-    <div class="card col-12 col-lg-3 col-sm-12 col-md-12">
-        <div class="term">{{word.term}}</div>
-        <div class="translation">{{word.translation}}</div>
-    </div>
+            $(".dictation-card").on("click", function () {
 
-    {% endfor %}
-</div>
+                $(this).toggleClass('is-flipped');
+
+            });
+
+        </script>
 
 {% endblock %}

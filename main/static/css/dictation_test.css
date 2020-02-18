@@ -19,3 +19,10 @@
 .next-tab{
     float: right;
 }
+li.active a{
+    background-color: #E74C3C ;
+}
+
+.answer.active {
+    background-color: #e0a800;
+}
