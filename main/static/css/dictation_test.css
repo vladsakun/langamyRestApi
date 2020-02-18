@@ -1,28 +1,67 @@
-#quiz-questions--div{
+#quiz-questions--div {
     background-color: #ffffff;
     color: #000000;
 }
-.previous-tab:hover, .next-tab:hover{
+
+.previous-tab:hover, .next-tab:hover {
     cursor: pointer;
 }
-#question-tabs--ul li{
+
+#question-tabs--ul {
+    display: flex;
+    justify-content: center;
+}
+
+#question-tabs--ul li {
     margin-right: .2em;
 }
 
-.tab-content{
+#question-tabs--ul li a {
+    padding: .5rem 1rem;
+}
+
+.tab-content {
     width: 100%;
     padding: 1em;
 }
-.previous-tab{
+
+.previous-tab {
+    margin-left: 0;
     float: left;
 }
-.next-tab{
+
+.next-tab {
+    margin-right: 0;
     float: right;
 }
-li.active a{
-    background-color: #E74C3C ;
+
+li.active a {
+    background-color: #E74C3C;
 }
 
 .answer.active {
     background-color: #e0a800;
+}
+
+.term {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.answer {
+    width: auto;
+    font-size: 1.3rem;
+}
+
+.answer:hover {
+    cursor: pointer;
+}
+
+#result--div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: 2rem;
 }

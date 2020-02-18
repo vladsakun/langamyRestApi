@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
 html, body {
     width: 100vw;
     height: 100vh;
@@ -22,7 +24,6 @@ header {
 #logo-img {
     width: 60px;
     height: 60px;
-    border: solid #ffffff;
 }
 
 #logo {
