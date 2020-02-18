@@ -11,9 +11,11 @@ html, body {
 
 }
 
+
 header {
     margin-top: 2em;
 }
+
 
 .fabutton {
     background: none;
@@ -39,11 +41,29 @@ header {
     margin: auto;
 }
 
-#logout-div, #search-div {
+#logout-desktop--div, #search-div {
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#logout-mobile--div {
+    display: none;
+
+}
+
+#logout--a{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-sign-out{
+    color: #ffffff;
 }
 
 #search-div input {
@@ -63,7 +83,15 @@ header {
 
 @media (max-width: 968px) {
 
-    #logout-div a {
+    #logout-mobile--div {
+        display: flex;
+    }
+
+    #logout-desktop--div {
+        display: none;
+    }
+
+    #logout-desktop--div a {
         padding: .5rem 1rem;
     }
 
@@ -86,7 +114,7 @@ header {
         min-width: 0;
     }
 
-    #logout-div, #search-div {
+    #search-div {
         padding: 0;
     }
 

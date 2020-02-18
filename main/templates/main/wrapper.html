@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="{% static 'css/wrapper.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap-social.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a7b1314dc0.js"
             crossorigin="anonymous"></script>
     <title>Langamy</title>
@@ -23,7 +25,7 @@
                      id="logo-img" alt="logo">
             </a>
         </div>
-        <div class="col-6 col-lg-6 col-md-6 col-sm-6" id="search-div">
+        <div class="col-8 col-lg-6 col-md-8 col-sm-8" id="search-div">
             <!-- Search form -->
             <form class="form-inline md-form form-sm active-cyan-2"
                   action="/" method="POST">
@@ -38,9 +40,14 @@
                 </button>
             </form>
         </div>
-        <div class="col-4 col-lg-3 col-md-4 col-sm-4" id="logout-div">
+        <div class="col-lg-3" id="logout-desktop--div">
             <a class="btn btn-sm blue-gradient" href="/accounts/logout/">
                 Logout
+            </a>
+        </div>
+        <div id="logout-mobile--div" class="col-2 col-md-2 col-sm-2">
+            <a id="logout--a" href="/accounts/logout/">
+                <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
             </a>
         </div>
     </div>
