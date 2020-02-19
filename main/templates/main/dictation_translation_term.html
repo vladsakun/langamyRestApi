@@ -6,12 +6,14 @@
         var dictation = {
             id: "{{dictation.id}}",
         };
+
         var app = {
             csrf_token: $("[name=csrfmiddlewaretoken]").val(),
         }
 
     </script>
     <script src="{% static 'js/tabs_switcher.js' %}"></script>
+    <script src="{% static 'js/dictation_term_translation.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/dictation_test.css' %}">
     <div class="container">
         <div id="quiz-questions--div" class="row m-1">
@@ -41,19 +43,20 @@
                         <div role="tabpanel" class="d-word tab-pane {% if forloop.counter == 1 %} active {% endif %}"
                              data-id="{{ forloop.counter }}" id="step{{ forloop.counter }}">
                             <div>
-                                <div class="term p-2">{{ word.term }}</div>
+                                <div class="term p-2">{{ word.translation }}</div>
                                 <div class="answers mt-4">
-                                    {% for answer in word.mixed %}
-                                        <div class="answer p-2">{{ answer }}</div>
-                                    {% endfor %}
+                                    <input class="form-control definition" name="answer-{{ forloop.counter }}"
+                                           placeholder="Translation" type="text">
                                 </div>
                             </div>
-                            <button class="btn btn-info previous-tab">previous</button>
-                            {% if not forloop.last %}
-                                <button class="btn btn-info next-tab">next</button>
-                            {% else %}
-                                <button class="btn btn-success finish">Finish</button>
-                            {% endif %}
+                            <div style="min-height: 4em">
+                                <button class="btn btn-info previous-tab">previous</button>
+                                {% if not forloop.last %}
+                                    <button class="btn btn-info next-tab">next</button>
+                                {% else %}
+                                    <button class="btn btn-success finish">Finish</button>
+                                {% endif %}
+                            </div>
                         </div>
                     {% endfor %}
                 </div>

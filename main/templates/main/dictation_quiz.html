@@ -6,14 +6,12 @@
         var dictation = {
             id: "{{dictation.id}}",
         };
-
         var app = {
             csrf_token: $("[name=csrfmiddlewaretoken]").val(),
         }
 
     </script>
     <script src="{% static 'js/tabs_switcher.js' %}"></script>
-    <script src="{% static 'js/dictation_term_translation.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/dictation_test.css' %}">
     <div class="container">
         <div id="quiz-questions--div" class="row m-1">
@@ -45,8 +43,9 @@
                             <div>
                                 <div class="term p-2">{{ word.term }}</div>
                                 <div class="answers mt-4">
-                                    <input class="form-control definition" name="answer-{{ forloop.counter }}"
-                                           placeholder="Translation" type="text">
+                                    {% for answer in word.mixed %}
+                                        <div class="answer p-2">{{ answer }}</div>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <div style="min-height: 4em">

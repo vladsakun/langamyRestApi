@@ -28,9 +28,20 @@ def get_dictation(request, code):
         marked_words = json.loads(dictation.marked_words)
         for marked_word in marked_words:
             dictation_words.append(marked_word)
+
+        if dictation.type_of_questions == "term_translation":
+            mode = "Term - Translation"
+
+        elif dictation.type_of_questions == 'quiz':
+            mode = 'Quiz'
+
+        elif dictation.type_of_questions == 'translation_term':
+            mode = 'Translation - Term'
+
     except Dictation.DoesNotExist:
         return render(request, 'main/dictation.html', context={"error": "Dictation does not exist"})
-    return render(request, 'main/dictation.html', context={"dictation": dictation, "dictation_words": dictation_words})
+    return render(request, 'main/dictation.html',
+                  context={"dictation": dictation, "dictation_words": dictation_words, "mode": mode})
 
 
 @login_required(login_url='/login/')
@@ -80,33 +91,43 @@ def dictation(request, code):
                     {"term": other_words[i]["term"],
                      "mixed": answers})
 
+                del other_words[i]
+
             random.shuffle(dictation_words_for_template)
             return render(request, 'main/dictation_quiz.html',
                           context={'dictation': dictation, 'dictation_words': dictation_words_for_template, })
 
-        elif dictation.type_of_questions == 'term_translation':
+        else:
 
             for n in range(0, len(marked_words)):
                 dictation_words_for_template.append({
-                    "term": marked_words[n]["term"]
+                    "term": marked_words[n]["term"],
+                    "translation": marked_words[n]["translation"]
                 })
 
             random.shuffle(other_words)
 
             for i in range(0, amount_of_other_words):
                 dictation_words_for_template.append({
-                    "term": marked_words[n]["term"]
+                    "term": other_words[n]["term"],
+                    "translation": other_words[n]["translation"]
                 })
+                del other_words[i]
 
             random.shuffle(dictation_words_for_template)
 
-            return render(request, 'main/dictation_term_translation.html',
-                          context={'dictation': dictation, 'dictation_words': dictation_words_for_template, })
+            if dictation.type_of_questions == 'term_translation':
+
+                return render(request, 'main/dictation_term_translation.html',
+                              context={'dictation': dictation, 'dictation_words': dictation_words_for_template, })
+
+            elif dictation.type_of_questions == 'translation_term':
+
+                return render(request, 'main/dictation_translation_term.html',
+                              context={'dictation': dictation, 'dictation_words': dictation_words_for_template, })
+
     except Dictation.DoesNotExist:
         return render(request, 'main/dictation.html', context={"error": "Dictation does not exist"})
-
-    return render(request, 'main/dictation_test.html',
-                  context={'dictation': dictation, 'dictation_words': dictation_words_for_template, })
 
 
 def check_answers(request):
@@ -138,11 +159,24 @@ def check_answers(request):
     for key in sorted_answers_keys:
         sorted_answers.update({key: answers[key]})
 
-    for answer_key in sorted_answers.keys():
-        if answers[answer_key] == sorted_words[answer_key]:
-            mark = mark + 1
-        else:
-            continue
+    if dictation.type_of_questions == 'translation_term':
+
+        val_list = list(sorted_words.values())
+        key_list = list(sorted_words.keys())
+
+        for name, value in sorted_answers.items():
+
+            if value == key_list[val_list.index(name)]:
+                mark = mark + 1
+            else:
+                continue
+    else:
+
+        for answer_key in sorted_answers.keys():
+            if answers[answer_key] == sorted_words[answer_key]:
+                mark = mark + 1
+            else:
+                continue
 
     user = User.objects.get(email=request.user.email)
     try:
