@@ -166,14 +166,14 @@ def check_answers(request):
 
         for name, value in sorted_answers.items():
 
-            if value == key_list[val_list.index(name)]:
+            if value.lower() == key_list[val_list.index(name)].lower():
                 mark = mark + 1
             else:
                 continue
     else:
 
         for answer_key in sorted_answers.keys():
-            if answers[answer_key] == sorted_words[answer_key]:
+            if answers[answer_key].lower() == sorted_words[answer_key].lower():
                 mark = mark + 1
             else:
                 continue
