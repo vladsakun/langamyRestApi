@@ -50,35 +50,58 @@ def dictation(request, code):
 
         dictation_words_for_template = []
 
-        for n in range(0, len(marked_words)):
-            three_random_values = get_random_dictation_words(all_dictation_words.copy(), marked_words[n])
-            answers = [marked_words[n]["translation"],
-                       three_random_values[0],
-                       three_random_values[1],
-                       three_random_values[2]]
+        if dictation.type_of_questions == 'quiz':
 
-            random.shuffle(answers)
+            for n in range(0, len(marked_words)):
+                three_random_values = get_random_dictation_words(all_dictation_words.copy(), marked_words[n])
+                answers = [marked_words[n]["translation"],
+                           three_random_values[0],
+                           three_random_values[1],
+                           three_random_values[2]]
 
-            dictation_words_for_template.append(
-                {"term": marked_words[n]["term"],
-                 "mixed": answers})
+                random.shuffle(answers)
 
-        random.shuffle(other_words)
+                dictation_words_for_template.append(
+                    {"term": marked_words[n]["term"],
+                     "mixed": answers})
 
-        for i in range(0, amount_of_other_words):
-            three_random_values = get_random_dictation_words(all_dictation_words.copy(), other_words[i])
-            answers = [other_words[i]["translation"],
-                       three_random_values[0],
-                       three_random_values[1],
-                       three_random_values[2]]
+            random.shuffle(other_words)
 
-            random.shuffle(answers)
+            for i in range(0, amount_of_other_words):
+                three_random_values = get_random_dictation_words(all_dictation_words.copy(), other_words[i])
+                answers = [other_words[i]["translation"],
+                           three_random_values[0],
+                           three_random_values[1],
+                           three_random_values[2]]
 
-            dictation_words_for_template.append(
-                {"term": other_words[i]["term"],
-                 "mixed": answers})
+                random.shuffle(answers)
 
-        random.shuffle(dictation_words_for_template)
+                dictation_words_for_template.append(
+                    {"term": other_words[i]["term"],
+                     "mixed": answers})
+
+            random.shuffle(dictation_words_for_template)
+            return render(request, 'main/dictation_quiz.html',
+                          context={'dictation': dictation, 'dictation_words': dictation_words_for_template, })
+
+        elif dictation.type_of_questions == 'term_translation':
+
+            for n in range(0, len(marked_words)):
+                dictation_words_for_template.append({
+                    "term": marked_words[n]["term"]
+                })
+
+            random.shuffle(other_words)
+
+            for i in range(0, amount_of_other_words):
+                dictation_words_for_template.append({
+                    "term": marked_words[n]["term"]
+                })
+
+            random.shuffle(dictation_words_for_template)
+
+            return render(request, 'main/dictation_term_translation.html',
+                          context={'dictation': dictation, 'dictation_words': dictation_words_for_template, })
     except Dictation.DoesNotExist:
         return render(request, 'main/dictation.html', context={"error": "Dictation does not exist"})
 

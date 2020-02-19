@@ -4,7 +4,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="125">
+          <list size="126">
             <item index="0" class="java.lang.String" itemvalue="bs4" />
             <item index="1" class="java.lang.String" itemvalue="django-recaptcha" />
             <item index="2" class="java.lang.String" itemvalue="PyYAML" />
@@ -130,6 +130,7 @@
             <item index="122" class="java.lang.String" itemvalue="aiohttp" />
             <item index="123" class="java.lang.String" itemvalue="google-auth" />
             <item index="124" class="java.lang.String" itemvalue="openpyxl" />
+            <item index="125" class="java.lang.String" itemvalue="psycopg2" />
           </list>
         </value>
       </option>
