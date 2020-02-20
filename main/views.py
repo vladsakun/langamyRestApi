@@ -172,15 +172,15 @@ def check_answers(request):
                 mark = mark + 1
                 user_answers.append({
                     "status": "correct",
-                    "term": key_list[val_list.index(name)],
-                    "translation": name,
+                    "term": name,
+                    "translation": key_list[val_list.index(name)] ,
                     "user_answer": value
                 })
             else:
                 user_answers.append({
                     "status": "incorrect",
-                    "term": key_list[val_list.index(name)],
-                    "translation": name,
+                    "term": name ,
+                    "translation": key_list[val_list.index(name)],
                     "user_answer": value
                 })
                 continue
@@ -192,15 +192,15 @@ def check_answers(request):
                 mark = mark + 1
                 user_answers.append({
                     "status": "correct",
-                    "term": sorted_words[answer_key],
-                    "translation": key_list[val_list.index(sorted_words[answer_key])],
+                    "term": key_list[val_list.index(sorted_words[answer_key])],
+                    "translation": sorted_words[answer_key] ,
                     "user_answer": answers[answer_key]
                 })
             else:
                 user_answers.append({
                     "status": "incorrect",
-                    "term": sorted_words[answer_key],
-                    "translation": key_list[val_list.index(sorted_words[answer_key])],
+                    "term": key_list[val_list.index(sorted_words[answer_key])],
+                    "translation": sorted_words[answer_key]  ,
                     "user_answer": answers[answer_key]
                 })
                 continue

@@ -44,6 +44,7 @@ $(window).ready(function () {
                         '/' + Dictation.amount + ' </div>');
 
                 });
+
                 var userAnswers = res.data.user_answers;
 
                 var userAnswersTabs = "";

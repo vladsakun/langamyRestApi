@@ -1,3 +1,7 @@
+html, body{
+    min-height: 1000px;
+}
+
 #quiz-questions--div {
     background-color: #ffffff;
     color: #000000;
