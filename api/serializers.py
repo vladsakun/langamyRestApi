@@ -31,3 +31,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email',)
+
+
+class TranslateSerializer(serializers.Serializer):
+    class Meta:
+        fields = ('setring_to_translate', 'form_lang', 'lang_to')

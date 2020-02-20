@@ -4,6 +4,7 @@ import random
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from yandex.Translater import Translater
 from api.models import *
 
 
@@ -199,9 +200,6 @@ def check_answers(request):
 
 def get_random_dictation_words(all_words, forloop_object):
     all_words.pop(all_words.index(forloop_object))
-    for word in all_words:
-        print(word["term"])
-    print("-" * 20)
     three_incorrect_values = []
     for i in range(0, 3):
         random_index = random.randrange(len(all_words))
@@ -209,3 +207,6 @@ def get_random_dictation_words(all_words, forloop_object):
         three_incorrect_values.append(all_words[random_index]["translation"])
         del all_words[random_index]
     return three_incorrect_values
+
+
+

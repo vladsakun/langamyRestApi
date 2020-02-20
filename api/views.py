@@ -1,3 +1,4 @@
+import json
 import os
 import uuid
 
@@ -10,6 +11,7 @@ from rest_framework.decorators import api_view
 from rest_framework.generics import RetrieveUpdateAPIView, RetrieveAPIView, GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from yandex.Translater import Translater
 
 from api.models import *
 from api.serializers import *
@@ -164,3 +166,24 @@ class GetStudySetsOfCurrentUser(generics.ListAPIView):
     def get_queryset(self, user_email=None):
         user_email = self.kwargs['user_email']
         return StudySets.objects.filter(creator=user_email)
+
+
+@api_view(['POST'])
+def translate(request):
+    if request.method == 'POST':
+        string_for_translation = request.data["string_to_translate"]
+        from_lang = request.data["from_lang"]
+        to_lang = request.data["to_lang"]
+
+        translater = Translater()
+
+        translater.set_key('trnsl.1.1.20200120T150252Z.3a85fe4899fc30b8.cb6bb06d018c3bb040233c26b981ba5b5e447520')
+        translater.set_from_lang(from_lang)
+        translater.set_to_lang(to_lang)
+        translater.set_text(string_for_translation)
+
+        response = {
+            "translation": translater.translate()
+        }
+
+        return JsonResponse(response, status=status.HTTP_200_OK)
