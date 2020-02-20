@@ -133,6 +133,7 @@ def dictation(request, code):
 
 def check_answers(request):
     mark = 0
+    answers = []
 
     dictation = Dictation.objects.get(id=request.POST.get("dictation_id"))
 
@@ -160,21 +161,54 @@ def check_answers(request):
     for key in sorted_answers_keys:
         sorted_answers.update({key: answers[key]})
 
-    if dictation.type_of_questions == 'translation_term':
+    val_list = list(sorted_words.values())
+    key_list = list(sorted_words.keys())
 
-        val_list = list(sorted_words.values())
-        key_list = list(sorted_words.keys())
+    if dictation.type_of_questions == 'translation_term':
 
         for name, value in sorted_answers.items():
 
             if value.lower() == key_list[val_list.index(name)].lower():
                 mark = mark + 1
+                answers.append({
+                    "status": "correct",
+                    "term": key_list[val_list.index(name)],
+                    "translation": name,
+                    "user_answer": value
+                })
             else:
+                answers.append({
+                    "status": "incorrect",
+                    "term": key_list[val_list.index(name)],
+                    "translation": name,
+                    "user_answer": value
+                })
                 continue
-    else:
+    elif dictation.type_of_questions == 'term_translation':
 
         for answer_key in sorted_answers.keys():
+
             if answers[answer_key].lower() == sorted_words[answer_key].lower():
+                mark = mark + 1
+                answers.append({
+                    "status": "correct",
+                    "term": sorted_words[answer_key],
+                    "translation": key_list[val_list.index(sorted_words[answer_key])],
+                    "user_answer": answers[answer_key]
+                })
+            else:
+                answers.append({
+                    "status": "incorrect",
+                    "term": sorted_words[answer_key],
+                    "translation": key_list[val_list.index(sorted_words[answer_key])],
+                    "user_answer": answers[answer_key]
+                })
+                continue
+
+    elif dictation.type_of_questions == 'quiz':
+
+        for answer_key in sorted_answers.keys():
+            if answers[answer_key] == sorted_words[answer_key]:
                 mark = mark + 1
             else:
                 continue
@@ -192,7 +226,8 @@ def check_answers(request):
     dictation_mark.save()
     response_data = {
         "data": {
-            "mark": mark
+            "mark": mark,
+            "answers": answers,
         }
     }
     return JsonResponse(response_data, safe=False)
@@ -207,6 +242,3 @@ def get_random_dictation_words(all_words, forloop_object):
         three_incorrect_values.append(all_words[random_index]["translation"])
         del all_words[random_index]
     return three_incorrect_values
-
-
-

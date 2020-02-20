@@ -51,6 +51,7 @@ $(window).ready(function () {
                         '/' + Quiz.amount + ' </div>');
 
                 });
+                console.log(res.data.answers)
             });
     })
 
