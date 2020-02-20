@@ -138,8 +138,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-if HOST:
-    STATIC_ROOT = '/home/vlad12/langamyRestApi/static'
+
+STATIC_ROOT = '/home/vlad12/langamyRestApi/static'
 
 AUTHENTIFICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
