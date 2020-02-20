@@ -168,7 +168,7 @@ def check_answers(request):
 
         for name, value in sorted_answers.items():
 
-            if value.lower() == key_list[val_list.index(name)].lower():
+            if value.lower().strip() == key_list[val_list.index(name)].lower():
                 mark = mark + 1
                 user_answers.append({
                     "status": "correct",
@@ -188,7 +188,7 @@ def check_answers(request):
 
         for answer_key in sorted_answers.keys():
 
-            if answers[answer_key].lower() == sorted_words[answer_key].lower():
+            if answers[answer_key].lower().strip() == sorted_words[answer_key].lower():
                 mark = mark + 1
                 user_answers.append({
                     "status": "correct",
