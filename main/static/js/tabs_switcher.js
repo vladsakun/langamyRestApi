@@ -5,6 +5,7 @@ jQuery('body').on('click', '.next-tab', function () {
         next.find('a').trigger('click');
     } else {
         jQuery('#question-tabs--ul a:first').tab('show');
+        jQuery('#answers-tabs--ul a:first').tab('show');
     }
 });
 
@@ -14,6 +15,7 @@ jQuery('body').on('click', '.previous-tab', function () {
         prev.find('a').trigger('click');
     } else {
         jQuery('#question-tabs--ul a:last').tab('show');
+        jQuery('#answers-tabs--ul a:last').tab('show');
     }
 });
 

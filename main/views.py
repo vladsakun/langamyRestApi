@@ -133,7 +133,7 @@ def dictation(request, code):
 
 def check_answers(request):
     mark = 0
-    answers = []
+    user_answers = []
 
     dictation = Dictation.objects.get(id=request.POST.get("dictation_id"))
 
@@ -170,14 +170,14 @@ def check_answers(request):
 
             if value.lower() == key_list[val_list.index(name)].lower():
                 mark = mark + 1
-                answers.append({
+                user_answers.append({
                     "status": "correct",
                     "term": key_list[val_list.index(name)],
                     "translation": name,
                     "user_answer": value
                 })
             else:
-                answers.append({
+                user_answers.append({
                     "status": "incorrect",
                     "term": key_list[val_list.index(name)],
                     "translation": name,
@@ -190,14 +190,14 @@ def check_answers(request):
 
             if answers[answer_key].lower() == sorted_words[answer_key].lower():
                 mark = mark + 1
-                answers.append({
+                user_answers.append({
                     "status": "correct",
                     "term": sorted_words[answer_key],
                     "translation": key_list[val_list.index(sorted_words[answer_key])],
                     "user_answer": answers[answer_key]
                 })
             else:
-                answers.append({
+                user_answers.append({
                     "status": "incorrect",
                     "term": sorted_words[answer_key],
                     "translation": key_list[val_list.index(sorted_words[answer_key])],
@@ -210,7 +210,19 @@ def check_answers(request):
         for answer_key in sorted_answers.keys():
             if answers[answer_key] == sorted_words[answer_key]:
                 mark = mark + 1
+                user_answers.append({
+                    "status": "correct",
+                    "term": key_list[val_list.index(sorted_words[answer_key])],
+                    "translation": sorted_words[answer_key] ,
+                    "user_answer": answers[answer_key]
+                })
             else:
+                user_answers.append({
+                    "status": "incorrect",
+                    "term": key_list[val_list.index(sorted_words[answer_key])],
+                    "translation": sorted_words[answer_key] ,
+                    "user_answer": answers[answer_key]
+                })
                 continue
 
     user = User.objects.get(email=request.user.email)
@@ -227,7 +239,7 @@ def check_answers(request):
     response_data = {
         "data": {
             "mark": mark,
-            "answers": answers,
+            "user_answers": sorted(user_answers, key=lambda i: i['status'], reverse=True),
         }
     }
     return JsonResponse(response_data, safe=False)

@@ -7,19 +7,6 @@
     cursor: pointer;
 }
 
-#question-tabs--ul {
-    display: flex;
-    justify-content: center;
-}
-
-#question-tabs--ul li {
-    margin-right: .2em;
-}
-
-#question-tabs--ul li a {
-    padding: .5rem 1rem;
-}
-
 .tab-content {
     width: 100%;
     padding: 1em;
@@ -57,11 +44,54 @@ li.active a {
     cursor: pointer;
 }
 
-#result--div{
+#result--div {
     width: 100%;
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
     font-size: 2rem;
+}
+
+#answers--div {
+    background: #fff;
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-tabs li {
+    margin-right: .2em !important;
+}
+
+.nav-tabs li a {
+    padding: .5rem 1rem !important;
+}
+
+.term--div {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.incorrect {
+    color: #9f191f;
+}
+
+.correct {
+    color: #00c851;
+}
+
+.user-answer-container--div .row .col-6 {
+    min-height: 10em;
+    position: relative;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+.user-answer-container--div .row .answer-bottom--div{
+    position: absolute;
+    bottom: 0;
 }
