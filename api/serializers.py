@@ -24,7 +24,7 @@ class SpecificDictationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dictation
         fields = ('creator', 'name', 'words', 'marked_words',
-                  'amount_of_words', 'amount_of_words_for_dictation', 'type_of_questions', 'members', 'id')
+                  'amount_of_words', 'amount_of_words_for_dictation', 'type_of_questions', 'members', 'id', 'code')
 
 
 class UserSerializer(serializers.ModelSerializer):
