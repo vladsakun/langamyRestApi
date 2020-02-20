@@ -13,9 +13,9 @@
     font-size: 1.2rem;
 }
 
-#dictation-info--div{
-    padding:1em;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+#dictation-info--div {
+    padding: 1em;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 #start-dictation--div a {
@@ -42,7 +42,7 @@
     justify-content: center;
     width: 100%;
     background: #ffffff;
-    box-shadow: 0 5px 20px #273746  , 0 5px 20px #273746  ;
+    box-shadow: 0 5px 20px #273746, 0 5px 20px #273746;
     min-height: 10em;
     color: #000000;
     transition: transform 1s;
@@ -75,15 +75,16 @@
     transform: rotateY(180deg);
 }
 
-.swiper-wrapper{
+.swiper-wrapper {
     padding-top: .5em;
     padding-bottom: .5em;
 }
-.swiper-button-next, .swiper-button-prev{
+
+.swiper-button-next, .swiper-button-prev {
     color: #ffffff;
 }
 
-.swiper-pagination{
+.swiper-pagination {
     color: #ffffff;
     font-size: 1.3rem;
     font-weight: 400;
@@ -99,4 +100,19 @@
     .dictation-card {
         margin-right: 0;
     }
+}
+
+@supports (-webkit-touch-callout: none) {
+    .dictation-card.is-flipped {
+        background: transparent !important;
+    }
+
+    .scene {
+        padding: 0 !important;
+        border: solid slategrey 1px !important;
+        border-radius: 0.5em !important;
+        background: #fff !important;
+    }
+
+    /* CSS specific to iOS devices */
 }
