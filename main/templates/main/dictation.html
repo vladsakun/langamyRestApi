@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 
-    <!-- Link Swiper's JS -->
-    <script src="https://unpkg.com/swiper/js/swiper.js"></script>
-    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
-
     <link rel="stylesheet" href="{% static 'css/dictation.css' %}">
 
 {% endblock %}
 
 {% block content %}
+
+        <!-- Link Swiper's JS -->
+    <script src="https://unpkg.com/swiper/js/swiper.js"></script>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 
     <p class="error">{{ error }}</p>
     <div class="container">
@@ -71,28 +71,28 @@
             </div>
         </div>
     </div>
-    <div>
 
-        <script>
+    <script>
 
-            {# Initialize Swiper #}
-            var swiper = new Swiper('.swiper-container', {
-                pagination: {
-                    el: '.swiper-pagination',
-                    type: 'fraction',
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-            });
+        {# Initialize Swiper #}
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'fraction',
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
 
-            $(".dictation-card").on("click", function () {
+        $(".dictation-card").on("click", function () {
 
-                $(this).toggleClass('is-flipped');
+            $(this).toggleClass('is-flipped');
 
-            });
+        });
 
-        </script>
+    </script>
+
 
 {% endblock %}

@@ -2,10 +2,9 @@
 {% load static %}
 
 {% block head %}
-    <script src="{% static 'js/tabs_switcher.js' %}"></script>
-    <script src="{% static 'js/dictation_quiz.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/dictation_test.css' %}">
+    
 {% endblock %}
 
 {% block content %}
@@ -20,6 +19,7 @@
         }
 
     </script>
+
 
     <div class="container">
 
@@ -74,5 +74,8 @@
         </div>
         <div id="answers-backgroud---div"></div>
     </div>
+
+    <script src="{% static 'js/dictation_quiz.js' %}"></script>
+    <script src="{% static 'js/tabs_switcher.js' %}"></script>
 
 {% endblock %}
