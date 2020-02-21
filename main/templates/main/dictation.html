@@ -1,47 +1,27 @@
 {% extends 'main/wrapper.html' %}
 {% load static %}
-{% block content %}
+{% block head %}
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 
+    <!-- Link Swiper's JS -->
     <script src="https://unpkg.com/swiper/js/swiper.js"></script>
     <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 
-    <!-- Demo styles -->
-    <style>
-        .swiper-container {
-            width: 100%;
-        }
-
-        .swiper-slide {
-            min-height: 15em;
-            text-align: center;
-            font-size: 18px;
-
-            /* Center slide text vertically */
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            -webkit-justify-content: center;
-            justify-content: center;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-        }
-    </style>
     <link rel="stylesheet" href="{% static 'css/dictation.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
     <p class="error">{{ error }}</p>
     <div class="container">
         <div class="row">
             <div id="dictation-info--div" class="col-lg-4 col-md-12 col-sm-12 col-12">
                 <div id="start-dictation--div">
-                    <a class="btn purple-gradient" href="/dictation/{{ dictation.code }}">Start dictation</a>
+                    <a class="btn" href="/dictation/{{ dictation.code }}">Start dictation</a>
                 </div>
                 <div class="col-12 col-lg-12 col-md-12 col-sm-12 table-responsive text-nowrap" style="padding: 0">
                     <table class="table table-sms" id="dictation-info--table">
@@ -92,8 +72,10 @@
         </div>
     </div>
     <div>
-        <!-- Initialize Swiper -->
+
         <script>
+
+            {# Initialize Swiper #}
             var swiper = new Swiper('.swiper-container', {
                 pagination: {
                     el: '.swiper-pagination',
@@ -104,9 +86,6 @@
                     prevEl: '.swiper-button-prev',
                 },
             });
-        </script>
-
-        <script>
 
             $(".dictation-card").on("click", function () {
 

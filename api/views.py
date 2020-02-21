@@ -168,22 +168,24 @@ class GetStudySetsOfCurrentUser(generics.ListAPIView):
         return StudySets.objects.filter(creator=user_email)
 
 
-@api_view(['POST'])
-def translate(request):
-    if request.method == 'POST':
-        string_for_translation = request.data["string_to_translate"]
-        from_lang = request.data["from_lang"]
-        to_lang = request.data["to_lang"]
+@api_view(['POST', 'GET'])
+def translate(request, string_to_translate, from_lang, to_lang):
 
-        translater = Translater()
+    # string_for_translation = request.data["string_to_translate"]
+    # from_lang = request.data["from_lang"]
+    # to_lang = request.data["to_lang"]
 
-        translater.set_key('trnsl.1.1.20200120T150252Z.3a85fe4899fc30b8.cb6bb06d018c3bb040233c26b981ba5b5e447520')
-        translater.set_from_lang(from_lang)
-        translater.set_to_lang(to_lang)
-        translater.set_text(string_for_translation)
+    translater = Translater()
 
-        response = {
-            "translation": translater.translate()
-        }
+    translater.set_key('trnsl.1.1.20200120T150252Z.3a85fe4899fc30b8.cb6bb06d018c3bb040233c26b981ba5b5e447520')
+    translater.set_from_lang(from_lang)
+    translater.set_to_lang(to_lang)
+    translater.set_text(string_to_translate)
 
-        return JsonResponse(response, status=status.HTTP_200_OK)
+    response = {
+        "translation": translater.translate()
+    }
+
+    print(translater.translate())
+
+    return JsonResponse(response, status=status.HTTP_200_OK)

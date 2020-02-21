@@ -1,5 +1,13 @@
 {% extends "main/wrapper.html" %}
 {% load static %}
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'css/dictation_test.css' %}">
+
+    <script src="{% static 'js/tabs_switcher.js' %}"></script>
+    <script src="{% static 'js/dictation_term_translation.js' %}"></script>
+    
+{% endblock %}
 {% block content %}
     <script>
 
@@ -12,9 +20,7 @@
         }
 
     </script>
-    <script src="{% static 'js/tabs_switcher.js' %}"></script>
-    <script src="{% static 'js/dictation_term_translation.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/dictation_test.css' %}">
+
     <div class="container">
         <div id="quiz-questions--div" class="row m-1">
             <div id="question-info--div" class="col-lg-12 col-12 col-md-12 col-sm-12 p-0">
