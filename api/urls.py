@@ -4,7 +4,7 @@ from api import views
 
 urlpatterns = [
 
-    path('translate/<str:string_to_translate>/<str:from_lang>/<str:to_lang>/', views.translate),
+    path('translate/<str:string_to_translate>/<str:from_lang>/<str:to_lang>/<str:mode>/', views.translate),
 
     path('get/studyset/<int:pk>/', views.study_set_detail),
     path('create/studyset/', views.create_study_set),
