@@ -190,7 +190,7 @@ def translate(request, string_to_translate, from_lang, to_lang, mode='one'):
 
         translater.set_text(string_to_translate)
 
-        response = {'translation': translater.translate()}
+        response = {'translation': translater.translate().replace(',', ';')}
 
     return JsonResponse(response, status=status.HTTP_200_OK)
 
