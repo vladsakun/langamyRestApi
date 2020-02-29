@@ -171,12 +171,14 @@ class GetStudySetsOfCurrentUser(generics.ListAPIView):
 
 
 @api_view(['POST', 'GET'])
-def translate(request, string_to_translate, from_lang, to_lang, mode='one'):
+def translate(request, from_lang, to_lang, mode='one'):
     translater = Translater()
 
     translater.set_key('trnsl.1.1.20200120T150252Z.3a85fe4899fc30b8.cb6bb06d018c3bb040233c26b981ba5b5e447520')
     translater.set_from_lang(from_lang)
     translater.set_to_lang(to_lang)
+
+    string_to_translate = request.data.get('nameValuePairs').get('words')
 
     if mode == 'one':
 
@@ -191,6 +193,8 @@ def translate(request, string_to_translate, from_lang, to_lang, mode='one'):
         translater.set_text(string_to_translate)
 
         response = {'translation': translater.translate().replace(',', ';')}
+
+    print(response)
 
     return JsonResponse(response, status=status.HTTP_200_OK)
 

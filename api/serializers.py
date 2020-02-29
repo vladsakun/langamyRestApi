@@ -20,6 +20,11 @@ class DictationNamesSerializer(serializers.ModelSerializer):
         fields = ('code', 'name', 'amount_of_words', 'id')
 
 
+class TranslateSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('words',)
+
+
 class SpecificDictationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dictation
