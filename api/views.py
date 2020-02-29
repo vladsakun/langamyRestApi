@@ -25,9 +25,11 @@ def createUniquId():
 @api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 def study_set_detail(request, pk):
     study_set = StudySets.objects.get(pk=pk)
+
     if request.method == 'GET':
         serializer = StudySetsSerializer(study_set)
         return Response(serializer.data)
+
     elif request.method == 'PUT' or request.method == 'PATCH':
         serializer = StudySetsSerializer(study_set, data=request.data, partial=True)
         if serializer.is_valid():
@@ -191,3 +193,22 @@ def translate(request, string_to_translate, from_lang, to_lang, mode='one'):
         response = {'translation': translater.translate()}
 
     return JsonResponse(response, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def finish_study_set(request, pk):
+    study_set = StudySets.objects.get(pk=pk)
+    study_set_words = json.loads(study_set.words)
+
+    for study_set_word in study_set_words:
+        study_set_word["firstStage"] = True
+        study_set_word["secondStage"] = False
+        study_set_word["thirdStage"] = False
+        study_set_word["forthStage"] = False
+
+    study_set.words = study_set_words
+    study_set.studied = True
+
+    study_set.save()
+
+    return Response(status=status.HTTP_200_OK)
