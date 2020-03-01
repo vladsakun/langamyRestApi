@@ -110,8 +110,8 @@ def dictation(request, code):
 
             for i in range(0, amount_of_other_words):
                 dictation_words_for_template.append({
-                    "term": other_words[n]["term"],
-                    "translation": other_words[n]["translation"]
+                    "term": other_words[i]["term"],
+                    "translation": other_words[i]["translation"]
                 })
                 del other_words[i]
 

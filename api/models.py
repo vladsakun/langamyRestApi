@@ -16,6 +16,7 @@ class StudySets(models.Model):
     language_to = models.CharField(max_length=256)
     language_from = models.CharField(max_length=256)
     words = models.TextField()
+    marked_words = models.TextField(blank=True, null=True, default='')
     creator = models.EmailField()
     percent_of_studying = models.IntegerField(blank=True, null=True)
     studied = models.BooleanField(default=False)
