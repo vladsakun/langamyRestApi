@@ -173,13 +173,13 @@ def check_answers(request):
                 user_answers.append({
                     "status": "correct",
                     "term": name,
-                    "translation": key_list[val_list.index(name)] ,
+                    "translation": key_list[val_list.index(name)],
                     "user_answer": value
                 })
             else:
                 user_answers.append({
                     "status": "incorrect",
-                    "term": name ,
+                    "term": name,
                     "translation": key_list[val_list.index(name)],
                     "user_answer": value
                 })
@@ -193,14 +193,14 @@ def check_answers(request):
                 user_answers.append({
                     "status": "correct",
                     "term": key_list[val_list.index(sorted_words[answer_key])],
-                    "translation": sorted_words[answer_key] ,
+                    "translation": sorted_words[answer_key],
                     "user_answer": answers[answer_key]
                 })
             else:
                 user_answers.append({
                     "status": "incorrect",
                     "term": key_list[val_list.index(sorted_words[answer_key])],
-                    "translation": sorted_words[answer_key]  ,
+                    "translation": sorted_words[answer_key],
                     "user_answer": answers[answer_key]
                 })
                 continue
@@ -213,19 +213,24 @@ def check_answers(request):
                 user_answers.append({
                     "status": "correct",
                     "term": key_list[val_list.index(sorted_words[answer_key])],
-                    "translation": sorted_words[answer_key] ,
+                    "translation": sorted_words[answer_key],
                     "user_answer": answers[answer_key]
                 })
             else:
                 user_answers.append({
                     "status": "incorrect",
                     "term": key_list[val_list.index(sorted_words[answer_key])],
-                    "translation": sorted_words[answer_key] ,
+                    "translation": sorted_words[answer_key],
                     "user_answer": answers[answer_key]
                 })
                 continue
 
-    user = User.objects.get(email=request.user.email)
+    try:
+        user = User.objects.get(email=request.user.email)
+    except User.DoesNotExist:
+        user = User(email=request.user.email)
+        user.save()
+
     try:
 
         dictation_mark = DictationMark.objects.get(user=user, dictation=dictation)
