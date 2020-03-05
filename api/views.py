@@ -205,8 +205,6 @@ def translate(request, from_lang, to_lang, mode='one'):
 
         response = {'translation': translater.translate().replace(',', ';')}
 
-    print(response)
-
     return JsonResponse(response, status=status.HTTP_200_OK)
 
 
@@ -227,3 +225,25 @@ def finish_study_set(request, pk):
     study_set.save()
 
     return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def clone_studyset(request, id, email):
+    studyset = StudySets.objects.get(pk=id)
+
+    cloned_studyset = StudySets.objects.filter(creator=email, words=studyset.words,
+                                     language_from=studyset.language_from,
+                                     language_to=studyset.language_to,
+                                     amount_of_words=studyset.amount_of_words,
+                                     name=studyset.name)
+
+    if cloned_studyset.exists():
+        return Response(cloned_studyset[0].pk, status=status.HTTP_200_OK)
+
+    if not studyset.creator == email and not cloned_studyset.exists():
+
+        studyset.pk = None
+        studyset.creator = email
+        studyset.save()
+
+    return Response(studyset.pk ,status=status.HTTP_200_OK)

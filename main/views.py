@@ -259,3 +259,14 @@ def get_random_dictation_words(all_words, forloop_object):
         three_incorrect_values.append(all_words[random_index]["translation"])
         del all_words[random_index]
     return three_incorrect_values
+
+
+@login_required(login_url='/login/')
+def studyset(request, id):
+    studyset = StudySets.objects.get(pk=id)
+
+    return render(request, 'main/studyset.html', context={
+        'studyset':studyset,
+    })
+
+
