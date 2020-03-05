@@ -125,6 +125,17 @@ def update_user_mark(request, email):
 
 
 @api_view(['GET'])
+def get_user_completed_dictations(request, email):
+    if request.method == 'GET':
+        dictation_marks = DictationMark.objects.filter(user=User.objects.get(email=email)).order_by('-updated_at')[:20]
+        member_marks = []
+        for dictation_mark in dictation_marks:
+            member_marks.append({"code": dictation_mark.dictation.code,
+                                 "name": dictation_mark.dictation.name})
+
+        return JsonResponse(member_marks, safe=False)
+
+@api_view(['GET'])
 def get_shared_studyset(request, creator, pk):
     study_set = StudySets.objects.get(creator=creator, pk=pk)
     if request.method == 'GET':
