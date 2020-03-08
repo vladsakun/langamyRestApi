@@ -31,6 +31,8 @@ class Dictation(models.Model):
     name = models.CharField(max_length=256, default="Dictation")
     creator = models.EmailField()
     words = models.TextField()
+    language_to = models.CharField(max_length=256)
+    language_from = models.CharField(max_length=256)
     marked_words = models.TextField(blank=True, null=True)
     members = models.ManyToManyField(User, related_name="members", through="DictationMark")
     type_of_questions = models.CharField(max_length=256, default="quiz")
