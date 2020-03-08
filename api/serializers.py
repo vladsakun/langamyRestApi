@@ -12,7 +12,7 @@ class StudySetsSerializer(serializers.ModelSerializer):
 class StudySetsNamesSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudySets
-        fields = ('name', 'amount_of_words', 'id')
+        fields = ('name', 'amount_of_words', 'id', 'synced')
 
 
 class DictationNamesSerializer(serializers.ModelSerializer):
