@@ -5,7 +5,8 @@ from .models import *
 class StudySetsSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudySets
-        fields = ('name', 'words', 'creator', 'amount_of_words', 'id', 'language_to', 'language_from', 'marked_words')
+        fields = ('name', 'words', 'creator', 'amount_of_words', 'id', 'language_to', 'language_from', 'marked_words',
+                  'synced')
 
 
 class StudySetsNamesSerializer(serializers.ModelSerializer):
