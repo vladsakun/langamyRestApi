@@ -135,6 +135,7 @@ def get_user_completed_dictations(request, email):
 
         return JsonResponse(member_marks, safe=False)
 
+
 @api_view(['GET'])
 def get_shared_studyset(request, creator, pk):
     study_set = StudySets.objects.get(creator=creator, pk=pk)
@@ -174,7 +175,7 @@ def create_dictation(request):
 
 
 class GetStudySetsOfCurrentUser(generics.ListAPIView):
-    serializer_class = StudySetsNamesSerializer
+    serializer_class = StudySetsSerializer
 
     def get_queryset(self, user_email=None):
         user_email = self.kwargs['user_email']
@@ -209,9 +210,13 @@ def translate(request, from_lang, to_lang, mode='one'):
 
 
 @api_view(['POST'])
-def finish_study_set(request, pk):
+def finish_study_set(request, pk, mode):
     study_set = StudySets.objects.get(pk=pk)
-    study_set_words = json.loads(study_set.words)
+
+    if mode == 'marked':
+        study_set_words = json.loads(study_set.marked_words)
+    else:
+        study_set_words = json.loads(study_set.words)
 
     for study_set_word in study_set_words:
         study_set_word["firstStage"] = True
@@ -219,7 +224,11 @@ def finish_study_set(request, pk):
         study_set_word["thirdStage"] = False
         study_set_word["forthStage"] = False
 
-    study_set.words = study_set_words
+    if mode == 'marked':
+        study_set.marked_words = study_set_words
+    else:
+        study_set.words = study_set_words
+
     study_set.studied = True
 
     study_set.save()
@@ -232,18 +241,17 @@ def clone_studyset(request, id, email):
     studyset = StudySets.objects.get(pk=id)
 
     cloned_studyset = StudySets.objects.filter(creator=email, words=studyset.words,
-                                     language_from=studyset.language_from,
-                                     language_to=studyset.language_to,
-                                     amount_of_words=studyset.amount_of_words,
-                                     name=studyset.name)
+                                               language_from=studyset.language_from,
+                                               language_to=studyset.language_to,
+                                               amount_of_words=studyset.amount_of_words,
+                                               name=studyset.name)
 
     if cloned_studyset.exists():
         return Response(cloned_studyset[0].pk, status=status.HTTP_200_OK)
 
     if not studyset.creator == email and not cloned_studyset.exists():
-
         studyset.pk = None
         studyset.creator = email
         studyset.save()
 
-    return Response(studyset.pk ,status=status.HTTP_200_OK)
+    return Response(studyset.pk, status=status.HTTP_200_OK)

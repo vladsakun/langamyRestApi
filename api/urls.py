@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('get/studyset/<int:pk>/', views.study_set_detail),
     path('create/studyset/', views.create_study_set),
-    path('finish/studyset/<int:pk>/', views.finish_study_set),
+    path('finish/studyset/<int:pk>/<str:mode>/', views.finish_study_set),
     path('delete/studyset/<int:pk>/', views.study_set_detail),
     path('patch/studyset/<int:pk>/', views.study_set_detail),
     path('clone/studyset/<int:id>/<str:email>/', views.clone_studyset),

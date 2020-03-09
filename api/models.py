@@ -21,7 +21,7 @@ class StudySets(models.Model):
     percent_of_studying = models.IntegerField(blank=True, null=True)
     studied = models.BooleanField(default=False)
     amount_of_words = models.IntegerField()
-    synced = models.BooleanField(default=True)
+    sync_status = models.BooleanField(default=True)
 
     def __str__(self):
         return '%s %s' % (self.name, self.creator)
