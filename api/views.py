@@ -236,6 +236,12 @@ def finish_study_set(request, pk, mode):
     return Response(status=status.HTTP_200_OK)
 
 
+# @api_view(['POST'])
+# def add_studyset_to_dictation(request, dictation_id, studyset_id):
+#
+#     return Response(status=status.HTTP_200_OK)
+#
+
 @api_view(['POST'])
 def clone_studyset(request, id, email):
     studyset = StudySets.objects.get(pk=id)
