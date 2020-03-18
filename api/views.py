@@ -45,9 +45,9 @@ def study_set_detail(request, pk):
 def dictation(request, code, mode):
     global dictation
     if mode == "id":
-        dictation = Dictation.objects.get(id=code)
+        dictation = Dictation.objects.get(id=code).order_by('-updated_at')
     elif mode == "code":
-        dictation = Dictation.objects.get(code=code)
+        dictation = Dictation.objects.get(code=code).order_by('-updated_at')
     if request.method == 'GET':
         serializer = SpecificDictationSerializer(dictation)
         return Response(serializer.data)
@@ -235,12 +235,6 @@ def finish_study_set(request, pk, mode):
 
     return Response(status=status.HTTP_200_OK)
 
-
-# @api_view(['POST'])
-# def add_studyset_to_dictation(request, dictation_id, studyset_id):
-#
-#     return Response(status=status.HTTP_200_OK)
-#
 
 @api_view(['POST'])
 def clone_studyset(request, id, email):
