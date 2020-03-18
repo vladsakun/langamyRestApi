@@ -45,9 +45,9 @@ def study_set_detail(request, pk):
 def dictation(request, code, mode):
     global dictation
     if mode == "id":
-        dictation = Dictation.objects.get(id=code).order_by('-updated_at')
+        dictation = Dictation.objects.get(id=code)
     elif mode == "code":
-        dictation = Dictation.objects.get(code=code).order_by('-updated_at')
+        dictation = Dictation.objects.get(code=code)
     if request.method == 'GET':
         serializer = SpecificDictationSerializer(dictation)
         return Response(serializer.data)
@@ -149,7 +149,7 @@ class GetDictationsOfCurrentUser(generics.ListAPIView):
 
     def get_queryset(self, user_email=None):
         user_email = self.kwargs['user_email']
-        return Dictation.objects.filter(creator=user_email)
+        return Dictation.objects.filter(creator=user_email).order_by('-updated_at')
 
 
 @api_view(['POST'])
