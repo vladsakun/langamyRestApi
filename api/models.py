@@ -39,6 +39,7 @@ class Dictation(models.Model):
     type_of_questions = models.CharField(max_length=256, default="quiz")
     amount_of_words = models.IntegerField(default=2)
     amount_of_words_for_dictation = models.IntegerField(default=2)
+    question_time = models.IntegerField(default=0)
 
     def __str__(self):
         return '%s %s' % (self.code, self.creator)
