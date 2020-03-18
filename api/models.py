@@ -40,6 +40,7 @@ class Dictation(models.Model):
     amount_of_words = models.IntegerField(default=2)
     amount_of_words_for_dictation = models.IntegerField(default=2)
     question_time = models.IntegerField(default=0)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '%s %s' % (self.code, self.creator)
