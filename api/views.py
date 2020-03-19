@@ -251,6 +251,17 @@ def clone_studyset(request, id, email):
 
     if not studyset.creator == email and not cloned_studyset.exists():
         studyset.pk = None
+
+        words = json.loads(studyset.words)
+
+        for word in words:
+            word["firstStage"] = False
+            word["secondStage"] = False
+            word["thirdStage"] = False
+            word["forthStage"] = False
+
+        studyset.words = words
+
         studyset.creator = email
         studyset.save()
 
