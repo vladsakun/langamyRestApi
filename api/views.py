@@ -236,6 +236,18 @@ def finish_study_set(request, pk, mode):
     return Response(status=status.HTTP_200_OK)
 
 
+class RandomDictation(generics.GenericAPIView,
+                      mixins.ListModelMixin):
+
+    def get_queryset(self):
+        creator_name = self.kwargs['creator']
+        return Dictation.objects.exclude(creator=creator_name).order_by('?')[:1]
+
+    serializer_class = SpecificDictationSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
 @api_view(['POST'])
 def clone_studyset(request, id, email):
     studyset = StudySets.objects.get(pk=id)

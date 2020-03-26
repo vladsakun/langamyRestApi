@@ -22,6 +22,7 @@ urlpatterns = [
     path('delete/dictation/<int:code>/<str:mode>/', views.dictation),
     path('patch/dictation/<int:code>/<str:mode>/', views.dictation),
     path('get/dictationsnames/<str:user_email>/', views.GetDictationsOfCurrentUser.as_view()),
+    path('get/random/dictation/<str:creator>/', views.RandomDictation.as_view()),
 
     path('get/user/<str:email>/', views.user),
     path('create/user/', views.user),
