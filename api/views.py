@@ -1,19 +1,11 @@
 import json
-import os
-import uuid
 
-from django.contrib.sites import requests
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from django.urls import reverse
 from rest_framework import status, mixins, generics
 from rest_framework.decorators import api_view
-from rest_framework.generics import RetrieveUpdateAPIView, RetrieveAPIView, GenericAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from yandex.Translater import Translater
 
-from api.models import *
 from api.serializers import *
 
 
@@ -39,6 +31,20 @@ def study_set_detail(request, pk):
     elif request.method == 'DELETE':
         study_set.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class CreateStudySet(mixins.CreateModelMixin,
+                     generics.GenericAPIView):
+
+    serializer_class = StudySetsSerializer
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class StudySetDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = StudySets.objects.all()
+    serializer_class = StudySetsSerializer
 
 
 @api_view(['GET', 'PATCH', 'DELETE', 'POST'])
@@ -247,6 +253,7 @@ class RandomDictation(generics.GenericAPIView,
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
 
 @api_view(['POST'])
 def clone_studyset(request, id, email):

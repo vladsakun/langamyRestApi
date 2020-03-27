@@ -7,7 +7,6 @@ urlpatterns = [
     path('translate/<str:from_lang>/<str:to_lang>/<str:mode>/', views.translate),
 
     path('get/studyset/<int:pk>/', views.study_set_detail),
-    path('create/studyset/', views.create_study_set),
     path('finish/studyset/<int:pk>/<str:mode>/', views.finish_study_set),
     path('delete/studyset/<int:pk>/', views.study_set_detail),
     path('patch/studyset/<int:pk>/', views.study_set_detail),
@@ -27,4 +26,7 @@ urlpatterns = [
     path('get/user/<str:email>/', views.user),
     path('create/user/', views.user),
     path('patch/user/mark/<str:email>/', views.update_user_mark),
+
+    path('studyset/<int:pk>/', views.StudySetDetail.as_view()),
+    path('create/studyset/', views.CreateStudySet.as_view()),
 ]
