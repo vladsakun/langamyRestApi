@@ -77,8 +77,7 @@ def dictation(request, code):
                     {"term": marked_words[n]["term"],
                      "mixed": answers})
 
-            random.shuffle(other_words)
-
+            # random.shuffle(other_words)
             for i in range(0, amount_of_other_words):
                 three_random_values = get_random_dictation_words(all_dictation_words.copy(), other_words[i])
                 answers = [other_words[i]["translation"],
@@ -92,10 +91,13 @@ def dictation(request, code):
                     {"term": other_words[i]["term"],
                      "mixed": answers})
 
-                del other_words[i]
-
             random.shuffle(dictation_words_for_template)
-            return render(request, 'main/dictation_quiz.html',
+            template_name = "main/dictation_quiz.html"
+
+            if dictation.question_time is not 0:
+                template_name = "main/dictation_with_countdown_timer.html"
+
+            return render(request, template_name,
                           context={'dictation': dictation, 'dictation_words': dictation_words_for_template, })
 
         else:
@@ -266,7 +268,5 @@ def studyset(request, id):
     studyset = StudySets.objects.get(pk=id)
 
     return render(request, 'main/studyset.html', context={
-        'studyset':studyset,
+        'studyset': studyset,
     })
-
-

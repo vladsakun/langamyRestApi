@@ -1,0 +1,78 @@
+{% extends "main/wrapper.html" %}
+{% load static %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'css/dictation_with_countdown_timer.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<script>
+        var time = {{dictation.question_time}};
+
+        function resetTimer(){
+            time = {{dictation.question_time}};
+            startTimer(time, display);
+        }
+
+        var dictation = {
+            id: "{{dictation.id}}",
+        };
+        var app = {
+            csrf_token: $("[name=csrfmiddlewaretoken]").val(),
+        }
+</script>
+
+
+<div class="container">
+
+    <div id="quiz-questions--div" class="row m-1">
+
+        <div id="question-info--div" class="col-lg-12 col-12 col-md-12 col-sm-12 p-0">
+
+            <div id="question-nums--div" class="col-lg-12 col-12 col-md-12 col-sm-12">
+
+                <ul class="nav nav-tabs" id="question-tabs--ul" role="tablist">
+
+                    {% for word in dictation_words %}
+
+                    <li role="presentation" class="{% if forloop.counter == 1 %}active{% endif %}">
+
+                        <a style="cursor: not-allowed; pointer-events: none;" class="btn btn-sm" href="#step{{ forloop.counter }}"
+                           aria-controls="step{{ forloop.counter }}"
+                           role="tab"
+                           data-toggle="tab">{{ forloop.counter }}</a>
+                    </li>
+
+                    {% endfor %}
+                </ul>
+
+            </div>
+            <div class="tab-content" id="question-tabs--div">
+                <div class="timer">123</div>
+                {% for word in dictation_words %}
+                <div role="tabpanel" class="d-word tab-pane {% if forloop.counter == 1 %} active {% endif %}"
+                     data-id="{{ forloop.counter }}" id="step{{ forloop.counter }}">
+                    <div>
+                        <div class="term p-2">{{ word.term }}</div>
+                        <div class="answers mt-4">
+                            {% for answer in word.mixed %}
+                            <div class="answer p-2">{{ answer }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <div id="answers-backgroud---div"></div>
+</div>
+
+<script src="{% static 'js/dictation_with_countdown_timer.js' %}"></script>
+<script src="{% static 'js/tabs_switcher.js' %}"></script>
+
+{% endblock %}
