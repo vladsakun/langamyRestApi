@@ -99,3 +99,12 @@ li.active a {
     position: absolute;
     bottom: 0;
 }
+
+.timer{
+    text-align:center;
+    background-color:#1976D2;
+    border-radius:20%;
+    color:#fff;
+    float: right;
+    width:2rem;
+}
