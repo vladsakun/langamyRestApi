@@ -121,7 +121,7 @@ def update_user_mark(request, email):
 @api_view(['GET'])
 def get_user_completed_dictations(request, email):
     if request.method == 'GET':
-        dictation_marks = DictationMark.objects.filter(user=User.objects.get(email=email)).order_by('-updated_at')[:20]
+        dictation_marks = DictationMark.objects.filter(user=UserModel.objects.get(email=email)).order_by('-updated_at')[:20]
         member_marks = []
         for dictation_mark in dictation_marks:
             member_marks.append({"code": dictation_mark.dictation.code,
