@@ -22,6 +22,7 @@ class StudySets(models.Model):
     studied = models.BooleanField(default=False)
     amount_of_words = models.IntegerField()
     sync_status = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '%s %s' % (self.name, self.creator)

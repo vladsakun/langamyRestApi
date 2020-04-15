@@ -42,7 +42,7 @@ class GetStudySetsOfCurrentUser(generics.ListAPIView):
 
     def get_queryset(self, user_email=None):
         user_email = self.kwargs['user_email']
-        return StudySets.objects.filter(creator=user_email)
+        return StudySets.objects.filter(creator=user_email).order_by('-updated_at')
 
 
 class User(APIView):
