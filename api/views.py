@@ -104,7 +104,7 @@ def update_user_mark(request, email):
     data = json.loads(request.data)
     dictationId = data["dictation_id"]
     mark = data["mark"]
-    user = User.objects.get(email=email)
+    user = UserModel.objects.get(email=email)
     dictation = Dictation.objects.get(id=dictationId)
 
     try:
