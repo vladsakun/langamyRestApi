@@ -81,6 +81,7 @@ class DictationView(APIView):
         dictation.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 @api_view(['GET'])
 def get_members_marks(request, dictation_id, mode):
     global dictation
@@ -121,7 +122,8 @@ def update_user_mark(request, email):
 @api_view(['GET'])
 def get_user_completed_dictations(request, email):
     if request.method == 'GET':
-        dictation_marks = DictationMark.objects.filter(user=UserModel.objects.get(email=email)).order_by('-updated_at')[:20]
+        dictation_marks = DictationMark.objects.filter(user=UserModel.objects.get(email=email)).order_by('-updated_at')[
+                          :20]
         member_marks = []
         for dictation_mark in dictation_marks:
             member_marks.append({"code": dictation_mark.dictation.code,
@@ -229,18 +231,13 @@ class RandomDictation(generics.GenericAPIView,
 
 @api_view(['POST'])
 def clone_studyset(request, id, email):
+
     studyset = StudySets.objects.get(pk=id)
 
-    cloned_studyset = StudySets.objects.filter(creator=email, words=studyset.words,
-                                               language_from=studyset.language_from,
-                                               language_to=studyset.language_to,
-                                               amount_of_words=studyset.amount_of_words,
-                                               name=studyset.name)
-
-    if cloned_studyset.exists():
-        return Response(cloned_studyset[0].pk, status=status.HTTP_200_OK)
-
-    if not studyset.creator == email and not cloned_studyset.exists():
+    try:
+        cloned_studyset = StudySets.objects.get(name=studyset.name, creator=email)
+        return Response(StudySetsSerializer(cloned_studyset).data, status=status.HTTP_200_OK)
+    except StudySets.DoesNotExist:
         studyset.pk = None
 
         words = json.loads(studyset.words)
@@ -256,4 +253,4 @@ def clone_studyset(request, id, email):
         studyset.creator = email
         studyset.save()
 
-    return Response(studyset.pk, status=status.HTTP_200_OK)
+        return Response(StudySetsSerializer(studyset).data, status=status.HTTP_200_OK)
